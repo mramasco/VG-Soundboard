@@ -47,6 +47,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.playbackDeviceList = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.playCurrentTabCheck = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.transparencySlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.masterVolume)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -64,6 +65,7 @@
             // 
             // tabControl
             // 
+            this.tabControl.AllowDrop = true;
             this.tabControl.Location = new System.Drawing.Point(1, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -221,11 +223,25 @@
             this.label3.Text = "Playback Devices:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // playCurrentTabCheck
+            // 
+            this.playCurrentTabCheck.AutoSize = true;
+            this.playCurrentTabCheck.Checked = true;
+            this.playCurrentTabCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.playCurrentTabCheck.Location = new System.Drawing.Point(567, 26);
+            this.playCurrentTabCheck.Name = "playCurrentTabCheck";
+            this.playCurrentTabCheck.Size = new System.Drawing.Size(129, 17);
+            this.playCurrentTabCheck.TabIndex = 23;
+            this.playCurrentTabCheck.Text = "Play Current Tab Only";
+            this.playCurrentTabCheck.UseVisualStyleBackColor = true;
+            this.playCurrentTabCheck.CheckedChanged += new System.EventHandler(this.playCurrentTabCheck_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 390);
+            this.Controls.Add(this.playCurrentTabCheck);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.playbackDeviceList);
             this.Controls.Add(this.loadConfigButton);
@@ -275,6 +291,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.CheckedListBox playbackDeviceList;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox playCurrentTabCheck;
 
     }
 }

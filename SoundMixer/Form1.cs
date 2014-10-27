@@ -133,10 +133,21 @@ namespace Soundboard
             {
                 foreach (var button in buttonPanels)
                 {
+
                     if (button.HotKey == e.KeyCode
                         && button.ModifierKey == ConvertModifierKey(e.Modifiers))
                     {
-                        button.HandleHotkey();
+                        if (playCurrentTabCheck.Checked)
+                        {
+                            if (button.Parent == tabControl.SelectedTab)
+                            {
+                                button.HandleHotkey();
+                            }
+                        }
+                        else
+                        {
+                            button.HandleHotkey();
+                        }
                     }
                 }
 
@@ -307,7 +318,6 @@ namespace Soundboard
                 if (!PlayBackDevices.Contains(e.Index))
                 {
                     PlayBackDevices.Add(e.Index);
-                    Console.WriteLine("{0} Selected", e.Index);
                 }
             }
             else
@@ -315,7 +325,6 @@ namespace Soundboard
                 if (PlayBackDevices.Contains(e.Index))
                 {
                     PlayBackDevices.Remove(e.Index);
-                    Console.WriteLine("{0} Unselected", e.Index);
                 }
             }
         }
@@ -405,6 +414,11 @@ namespace Soundboard
             tc.TabPages[index_dst] = src;
             tc.TabPages[index_src] = dst;
             tc.Refresh();
+        }
+
+        private void playCurrentTabCheck_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

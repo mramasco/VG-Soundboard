@@ -59,7 +59,6 @@ namespace Soundboard
 
         public void SetVolume(double vol, Guid id)
         {
-            Console.Write("Vol Change to {0}", vol);
             var player = players.FirstOrDefault(x => x.Id == id);
 
             if (players != null)

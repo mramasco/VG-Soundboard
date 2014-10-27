@@ -79,6 +79,7 @@ namespace Soundboard
 
                 id = _soundQueue.RegisterSound(SoundLocation, VolumeFromSlider(), loopCheckBox.Checked);
             }
+
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -101,7 +102,6 @@ namespace Soundboard
 
         public void HandleHotkey()
         {
-        
             PlaySound();
         }
 
@@ -119,12 +119,6 @@ namespace Soundboard
         private double VolumeFromSlider()
         {
             var vol = ((double)volumeSlider.Value / 10);
-            Console.WriteLine("slider: " + volumeSlider.Value + " vol: " + vol);
-
-            //strange bug causing 1 to be lower than .9
-            //if (vol == 1)
-            //    return .99f;
-             
             return vol;
         }
 

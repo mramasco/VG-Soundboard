@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Collections;
+using System.IO;
 
 namespace Soundboard
 {
@@ -83,6 +84,8 @@ namespace Soundboard
             
             //if(openFileDialog1.CheckFileExists && openFileDialog1.
             soundPathTextBox.Text = openFileDialog1.FileName.ToString();
+            buttotTextTextBox.Text = Path.GetFileNameWithoutExtension(openFileDialog1.FileName.ToString());
+
         }
 
         private void cmbboxClr_DrawItem(object sender, DrawItemEventArgs e)

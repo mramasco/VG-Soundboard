@@ -52,7 +52,8 @@ namespace Soundboard
                     PlayingSounds[device].Init(new AudioFileReader(_path));
                     PlayingSounds[device].Play();
             }
-           //foreach(var sound in PlayingSounds)
+
+           //foreach(var sound in PlayingSounds)
             //{
             //    sound.Value.Stop();
             //    sound.Value.Init(new AudioFileReader(_path));
@@ -65,7 +66,6 @@ namespace Soundboard
 
         void audioOutput_PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            Console.WriteLine("{0} has stop playing", sender);
             var v = sender as WaveOut;
 
             if (_loop && _isLooping)

@@ -21,7 +21,6 @@ namespace Soundboard
         private void HandleKeyInput(object sender, KeyEventArgs e)
         {
             Key = e.KeyCode;
-            Console.WriteLine(Key);
             Close();
         }
 
