@@ -51,7 +51,7 @@ namespace Soundboard
             }
 
             playbackDeviceList.SetItemChecked(0, true);
-            PlayBackDevices.Add(0);
+            //PlayBackDevices.Add(0);
         }
 
 

@@ -16,7 +16,7 @@ namespace Soundboard
 
             if (player != null)
             {
-                player.Stop();
+            
                 player.Play();
             }
         }
@@ -61,11 +61,21 @@ namespace Soundboard
         {
             var player = players.FirstOrDefault(x => x.Id == id);
 
-            if (players != null)
+            if (player != null)
             {
                 player.ChangeVolume(vol);
             }
         }
+
+      public void SetLoop(bool loop, Guid id)
+      {
+        var player = players.FirstOrDefault(x => x.Id == id);
+
+        if (player != null)
+        {
+          player.ChangeLoop(loop);
+        }
+      }
 
         public void ResetQueue()
         {

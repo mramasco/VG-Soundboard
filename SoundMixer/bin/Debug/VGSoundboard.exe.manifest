@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VGSoundboard.exe" size="44032">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VGSoundboard.exe" size="45568">
       <assemblyIdentity name="VGSoundboard" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>5sP59xPtwISDJm18w6uYQ+Nv9aI=</dsig:DigestValue>
+        <dsig:DigestValue>pJSWcZXCG/XWZbchljJtOziAZN4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

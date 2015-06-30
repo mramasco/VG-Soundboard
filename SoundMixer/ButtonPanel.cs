@@ -84,7 +84,7 @@ namespace Soundboard
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            RegisterSound();
+           _soundQueue.SetLoop(loopCheckBox.Checked, id);
         }
 
         private void ButtonRightClick(object sender, MouseEventArgs e)

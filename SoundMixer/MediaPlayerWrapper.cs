@@ -12,11 +12,11 @@ namespace Soundboard
     public class MediaPlayerWrapper
     {
         bool _loop;
-        bool _isLooping;
+        bool _replay;
         string _path;
         double _volume;
         double _masterVol;
-        Dictionary<int, WaveOut> PlayingSounds = new Dictionary<int, WaveOut>();
+        Dictionary<int, List<WaveOut>> _playingSounds = new Dictionary<int, List<WaveOut>>();
 
         public Guid Id {get;set;}
         public bool IsFinished {get;set;}
@@ -26,64 +26,103 @@ namespace Soundboard
             Id = guid;
             _path = path;
             _loop = loop;
-            _isLooping = false;
+            _replay = false;
             _masterVol = 1;
             _volume = volume;
         }
 
         public void Play()
         {
-            foreach (var device in Form1.PlayBackDevices)
+          if (_loop)
+          {
+            _replay = true;
+          }
+          foreach (var device in Form1.PlayBackDevices)
+          {
+            try
             {
-                if (!PlayingSounds.ContainsKey(device))
-                {
-                    WaveOut waveOutDevice;
-                    AudioFileReader audioFileReader;
-                    waveOutDevice = new WaveOut();
-                    audioFileReader = new AudioFileReader(_path);
-                    waveOutDevice.DeviceNumber = device;
-                    waveOutDevice.Init(audioFileReader);
-                    waveOutDevice.Volume = (float)(_volume * _masterVol);
-                    waveOutDevice.PlaybackStopped += new EventHandler<StoppedEventArgs>(audioOutput_PlaybackStopped);
-                    PlayingSounds.Add(device, waveOutDevice);
-
-                }
-                    PlayingSounds[device].Stop();
-                    PlayingSounds[device].Init(new AudioFileReader(_path));
-                    PlayingSounds[device].Play();
+              var waveOutDevice = CreateNewSound(device);
+              if (!_playingSounds.ContainsKey(device))
+              {
+                _playingSounds.Add(device, new List<WaveOut>());
+              }
+              _playingSounds[device].Add(waveOutDevice);
+              waveOutDevice.Play();
             }
+            catch (Exception)
+            {
+              CleanupSounds();
+            }
+           
+          }
 
-           //foreach(var sound in PlayingSounds)
-            //{
-            //    sound.Value.Stop();
-            //    sound.Value.Init(new AudioFileReader(_path));
-            //    sound.Value.Play();
-            //}
-
-            _isLooping = true;
+          
         }
 
+      private void CleanupSounds()
+      {
+        foreach (var soundList in _playingSounds)
+        {
+          soundList.Value.RemoveAll(x => x.PlaybackState == PlaybackState.Stopped);
+        }
+      }
 
         void audioOutput_PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            var v = sender as WaveOut;
+          var waveout = sender as WaveOut;
+          var deviceId = waveout.DeviceNumber;
 
-            if (_loop && _isLooping)
+          if (waveout != null) waveout.Dispose();
+          foreach (var soundList in _playingSounds)
+          {
+            soundList.Value.RemoveAll(x => x.PlaybackState == PlaybackState.Stopped);
+          }
+
+          if (_loop && _replay)
+          {
+            try
             {
-                PlayingSounds[v.DeviceNumber].Stop();
-                PlayingSounds[v.DeviceNumber].Init(new AudioFileReader(_path));
-                PlayingSounds[v.DeviceNumber].Play();
+              var newSound = CreateNewSound(deviceId);
+              _playingSounds[deviceId].Add(newSound);
+              newSound.Play();
             }
+            catch (Exception)
+            {
+              CleanupSounds();
+             
+            }
+          
+           
+          }
+
+       
+
         }
+
+      private WaveOut CreateNewSound(int device)
+      {
+        WaveOut waveOutDevice;
+        AudioFileReader audioFileReader;
+        waveOutDevice = new WaveOut();
+        audioFileReader = new AudioFileReader(_path);
+        waveOutDevice.DeviceNumber = device;
+        waveOutDevice.Init(audioFileReader);
+        waveOutDevice.Volume = (float)(_volume * _masterVol);
+        waveOutDevice.PlaybackStopped += new EventHandler<StoppedEventArgs>(audioOutput_PlaybackStopped);
+        return waveOutDevice;
+      }
 
         public void Stop()
         {
-            foreach (var sound in PlayingSounds)
+          foreach (var soundsList in _playingSounds)
+          {
+            foreach (var sound in soundsList.Value)
             {
-                sound.Value.Stop();
+              sound.Stop();
             }
-            _isLooping = false;
-            IsFinished = true;
+          }
+          _replay = false;
+          IsFinished = true;
         }
 
         private void SetFinished(object sender, EventArgs e)
@@ -94,18 +133,31 @@ namespace Soundboard
         public void ChangeVolume(double newVol)
         {
             _volume = newVol;
-            foreach (var sound in PlayingSounds)
+            foreach (var soundsList in _playingSounds)
             {
-                sound.Value.Volume = (float)(newVol * _masterVol);
+              foreach (var sound in soundsList.Value)
+              {
+
+                 sound.Volume = (float)(newVol * _masterVol);
+              }
             }           
         }
+
+      public void ChangeLoop(bool loop)
+      {
+        _loop = loop;
+      }
 
         public void ChangeMasterVolume(double newVol)
         {
             _masterVol = newVol;
-            foreach (var sound in PlayingSounds)
+            foreach (var soundsList in _playingSounds)
             {
-                sound.Value.Volume = (float)(newVol * _volume);
+              foreach (var sound in soundsList.Value)
+              {
+
+                sound.Volume = (float) (newVol*_volume);
+              }
             }
         }
 
