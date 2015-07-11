@@ -35,7 +35,6 @@ C:\Users\Mark\Desktop\Git\VGSoundboard\SoundMixer\obj\x86\Debug\VGSoundboard.exe
 C:\Users\Mark\Desktop\Git\VGSoundboard\SoundMixer\obj\x86\Debug\VGSoundboard.application
 D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\VGSoundboard.exe
 D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\VGSoundboard.pdb
-D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\VGSoundboard.csprojResolveAssemblyReference.cache
 D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\Soundboard.ButtonPanel.resources
 D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\Soundboard.Form1.resources
 D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\Soundboard.PopupForm.resources
@@ -50,3 +49,4 @@ D:\Projects\Soundboard\SoundMixer\bin\Debug\VGSoundboard.pdb
 D:\Projects\Soundboard\SoundMixer\bin\Debug\NAudio.xml
 D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\VGSoundboard.exe.manifest
 D:\Projects\Soundboard\SoundMixer\obj\x86\Debug\VGSoundboard.application
+D:\Projects\Soundboard\SoundMixer\bin\Debug\NAudio.dll
